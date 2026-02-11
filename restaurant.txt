@@ -1,0 +1,104 @@
+Projet B3 Fullstack : "GastroChef - The Lost Menu"
+
+Vous reprenez un restaurant légendaire « La tour d’émeraude », mais le chef précédent est parti avec le livre de recettes !
+Vos placards, vos frigos, tout est vide. Vous avez une heure avant l’ouverture, les clients vont affluer et commander des plats précis, mais vous ne connaissez même pas les ingrédients.
+
+Vous devez gérer une Ghost Kitchen sous pression :
+
+1. Acheter vos stocks intelligemment.
+2. Redécouvrir les recettes en expérimentant au laboratoire.
+3. Servir les clients en temps réel pour éviter la faillite.
+
+
+Stack Technique : React, Node.js, SQL (Postgres/MySQL) ou Mongo, Socket.io.
+
+---
+
+ 1. Cahier des Charges Fonctionnel
+
+ A. Accès & Sauvegarde (Authentification)
+
+Connexion / Inscription : Le joueur doit créer un compte pour gérer son restaurant, sa partie doit être persistée.
+
+ B. Le Laboratoire (Core Gameplay)
+
+Marketplace : Acheter des ingrédients qui s'ajoutent au stock.
+Expérimentation : Le joueur combine des ingrédients.
+=>Succès : Combinaison valide -> Recette débloquée dans la stack de préparation.
+=>Échec : Combinaison invalide -> Ingrédients détruits.
+
+ C. Le Service (Temps Réel)
+
+Flux de Commandes : Le serveur envoie des commandes via WebSockets.
+Service : Pour servir, le joueur doit avoir débloqué la recette ET avoir le stock suffisant.
+Économie : Achat = Dépense et Service = Gain. Game Over si Trésorerie < 0.
+
+
+ 2. Grille de Notation Progressive
+
+Le rendu sera : lien GitHub/GitLab, avec procédure d’installation/lancement, document (readme/pdf) d’architecture (diagramme d’archi, DDC…), explication du travail effectué (-1 si absence).
+Le sujet sera présenté vendredi devant groupe observateur.
+Le rendu final sera dimanche soir 23H55.
+
+ Niveau 10/20 : "Niveau Cuisinier" (MVP avec Auth)
+
+Le jeu est jouable et la progression est sauvegardée.
+
+ Authentification (JWT) :
+ Formulaire d'Inscription (Nom du resto, Email, Password haché).
+ Login (Génération d'un Token JWT).
+ Protection des routes (Impossible de jouer sans être connecté).
+
+ Le Labo (Discovery) :
+ Interface Drag & Drop.
+ Algo de Matching (Comparaison Ingrédients vs Recette).
+ Sauvegarde des recettes trouvées en base.
+Livre recettes disponibles.
+
+=>A ce niveau, pas de notion d'argent, quantité d'ingrédient illimité (en stock ou à l'ajout).
+Pas de notion de commande.
+
+ Niveau 13/20 : "Niveau Chef de Partie" (Le Stress du Direct !!!)
+
+Le jeu devient dynamique avec la gestion du temps.
+
+ WebSockets (Socket.io) : Le serveur pousse des commandes aléatoires en temps réel.
+ Logique de Service :
+ Bouton "Servir" actif uniquement si : Recette Connue + Stock Dispo.
+ Mise à jour atomique : Stock - Ingrédients / Trésorerie + Prix Vente.
+
+ Gestion du Timer : Le serveur rejette la commande si le joueur est trop lent (Date d'expiration dépassée).
+Introduction d’une notion de satisfaction client via avis. Une commande rejetée vaut un avis negatif. Un avis négatif vaut -10 points. Si une commande honoré vaut +1 point.
+Le restaurant commence avec 20 points de satisfaction. Si <0, perdu.
+
+A ce niveau, toujours pas de notion d'argent, quantité d'ingrédient illimité (en stock ou à l'ajout).
+
+
+ Niveau 16/20 : "Niveau Restaurateur" (Capitalisme!)
+
+Gestion financière et rentabilité.
+
+ Système Monétaire :
+ Table `Transactions` pour tracer chaque mouvement d'argent.
+ Calcul en temps réel de la Trésorerie affichée dans la navbar.
+
+Acheter des ingrédients coute, ne pas servir un plat à temps coute, servir des plats rapporte.
+Gestion des quantités.
+
+ Dashboard Financier :
+ Graphiques (Chart.js) : Évolution de la Trésorerie / Répartition des dépenses.
+ Calcul de Marge : Affichage du bénéfice net par plat vendu.
+
+
+
+ Niveau 18/20 : "Niveau Chef Étoilé" (***)
+
+Fonctionnalités avancées.
+
+1. Le Critique Gastronomique : Commande spéciale aléatoire (VIP). Si réussie : Gros Bonus. Si ratée : Grosse perte, et perte d’une étoile. Début avec 3***. Si décente à 1*, perdu.
+2. Gestion des DLC (FIFO) : Utilisation prioritaire des stocks les plus anciens lors de la cuisson. Cron de suppression des périmés.
+3. Ops (Docker) : Lancement complet via `docker-compose up`.
+4. Interface reponsive
+
+Les données des recettes dans la bdd pourront être générées.
+Un script sera fourni pour alimenter les tables.

@@ -1,0 +1,63 @@
+    generator client {
+    provider = "prisma-client-js"
+    }
+
+    datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+    }
+
+    model user {
+        id          Int         @id @default(autoincrement())
+        email       String      @unique
+        username    String
+        password    String
+        argent      Int
+        role        String
+        ingredients stock[]
+        grimoire    grimoire[]
+    }
+
+    model ingredient {
+    id      Int       @id @default(autoincrement())
+    label   String    @unique
+    prix    Int
+    plats   recette[]
+    users   stock[]
+    }
+
+    model plat {
+    id            Int       @id @default(autoincrement())
+    label         String    @unique
+    ingredients   recette[]
+    grimoire      grimoire[]
+    }
+
+    model stock {
+        id              Int         @id @default(autoincrement())
+        userId          Int
+        user            user        @relation(fields: [userId], references: [id])
+        ingredientId    Int
+        ingredient      ingredient  @relation(fields: [ingredientId], references: [id])
+        quantite        int
+        @@unique([userId, ingredientId]) 
+    }
+    model recette {
+    id           Int        @id @default(autoincrement())
+    platId       Int
+    plat         plat       @relation(fields: [platId], references: [id])
+    ingredientId Int
+    ingredient   ingredient @relation(fields: [ingredientId], references: [id])
+
+    @@unique([platId, ingredientId]) 
+    }
+
+    model grimoire {
+    id           Int        @id @default(autoincrement())
+    platId       Int
+    plat         plat       @relation(fields: [platId], references: [id])
+    userId       Int
+    user         user       @relation(fields: [userId], references: [id])
+
+    @@unique([platId, userId]) 
+    }
