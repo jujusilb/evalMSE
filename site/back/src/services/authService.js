@@ -15,7 +15,7 @@ function safeUser(u) {
 
 export const authService = {
   async register(payload) {
-    const { email, username, password, role = "USER" } = payload || {};
+    const { email, username, password, role = "USER", argent = 100} = payload || {};
 
     if (!email || !String(email).includes("@")) {
       throw new ApiError(400, "Invalid email");
@@ -46,6 +46,7 @@ export const authService = {
         username: String(username).trim(),
         password: hashed,
         role,
+        argent
       },
     });
 

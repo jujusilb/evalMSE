@@ -5,7 +5,7 @@ import { healthRoutes } from "./routes/healthRoutes.js";
 import { authRoutes } from "./routes/authRoutes.js";
 import { ingredientRoutes } from "./routes/ingredientRoutes.js";
 import { platRoutes } from "./routes/platRoutes.js";
-import userRouter from "./routes/userRoutes.js";
+import  userRouter from "./routes/userRoutes.js";
 
 export const createApp = () => {
   const app = express();
@@ -17,7 +17,7 @@ export const createApp = () => {
 // Route de base
   app.get("/", (req, res) => {
     res.json({
-      message: "et bon appetit bien sur !",
+      message: "e t bon appetit bien sur !",
       recette: "/recette"
     });
   });

@@ -1,6 +1,7 @@
 import { userService }  from "../services/userService.js";
 import jwt from "jsonwebtoken";
 import { ApiError } from "../errors/ApiError.js";
+import { authenticateToken } from "../middlewares/auth.js";
 
  console.log("IN platCONTROLLER !")
  
@@ -26,7 +27,7 @@ export const userController = {
         console.log("req body", req.body)
         try {
             const result = await userService.testPlat({
-                ingredient:req.body.ingredient,
+                ingredients:req.body.ingredient,
                 user:req.user.id
             });
             console.log(result);
