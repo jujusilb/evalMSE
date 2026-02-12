@@ -11,9 +11,9 @@ const JWT_EXPIRES_IN = "7d";
 
 export const userService = {
   async acheterIngredient(payload) {
-    const { ingredientID, prix, userID } = payload || {};
+    const { ingredientId, prix, userId } = payload || {};
     const user =await prisma.user.findUnique({
-      where: { id: userID }
+      where: { id: userId }
     });
     if (!user){
       return "cet user n'existe pas";
@@ -37,30 +37,64 @@ export const userService = {
   },
 
   async testPlat(payload) {
-    const { ingredient, userID } = payload || {};
+    const { ingredients, userId } = payload || {};
     const user =await prisma.user.findUnique({
-      where: { id: userID }
+      where: { id: userId }
     });
-    const idsRecus = ingredient.map(item => Number(item.id));
+    const idsRecus = ingredients.map(item => Number(item.id));
+    console.log("LOG 1 - IDs recus :", idsRecus);
     const tousLesPlats = await prisma.plat.findMany({
         include: {
             ingredients: true
         }
     });
+    console.log("LOG 2 - Ingredients plat 9 :", tousLesPlats.find(p => p.id === 9)?.ingredients.map(i => i.ingredientId));
     const platsPossibles = tousLesPlats.filter(plat => {
+        if (!plat.ingredients || plat.ingredients.length === 0) return false;
         return plat.ingredients.every(recette => 
             idsRecus.includes(recette.ingredientId)
         );
     });
+    console.log("LOG 3 - Plats trouves :", platsPossibles.length);
     if (platsPossibles.length > 0) {
-        const platChoisi = platsPossibles[0];
+      const platChoisi = platsPossibles[0];
+      const existing = await prisma.grimoire.findFirst({
+        where: { 
+          platId: platChoisi.id,
+          userId: user.id
+        }
+      });
+      if (existing){
+        throw new ApiError(409, "plat deja connu !");
+      } else {
         await prisma.grimoire.create({
-            data: {
-                platId: platChoisi.id,
-                userId: user.id
-            },
+          data: {
+              platId: platChoisi.id,
+              userId: user.id
+          },
         });
         return { plat: platChoisi };
+      }
+    } else {
+      for (const ingId of idsRecus) {
+        const stockItem = await prisma.stock.findUnique({
+          where: {
+            userId_ingredientId: { 
+              userId: user.id,
+              ingredientId: ingId
+            }
+          }
+        });
+
+        if (stockItem && stockItem.quantite > 0) {
+          await prisma.stock.update({
+            where: { id: stockItem.id },
+            data: { quantite: stockItem.quantite - 1 }
+          });
+          console.log(`Inventaire mis à jour : -1 pour l'ingrédient ${ingId}`);
+        }
+      }
+      return { message: "Aucun plat découvert, ingrédients consommés." };
     }
   },
 

@@ -11,10 +11,11 @@ export const userController = {
         console.log("req body", req.body)
         try {
             const result = await userService.acheterIngredient({
-                ingredient:req.body.ingredient,
+                ingredient:req.body.ingredients,
                 user:req.user.id
             });
             console.log(result);
+            res.json(result);
         } catch (err) {
             next(err);
         }
@@ -27,10 +28,11 @@ export const userController = {
         console.log("req body", req.body)
         try {
             const result = await userService.testPlat({
-                ingredients:req.body.ingredient,
-                user:req.user.id
+                ingredients:req.body.ingredients,
+                userId:req.user.id
             });
-            console.log(result);
+            console.log(result)
+            res.json(result);
         } catch (err) {
             next(err);
         }
