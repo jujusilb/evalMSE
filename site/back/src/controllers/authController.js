@@ -1,6 +1,8 @@
 import { authService } from "../services/authService.js";
 import { ApiError } from "../errors/ApiError.js";
 
+console.log("IN AUTHCONTROLLER !")
+
 export const authController = {
     async register(req, res, next){
         try {

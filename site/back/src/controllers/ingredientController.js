@@ -2,7 +2,7 @@ import { ingredientService } from "../services/ingredientService.js";
 import jwt from "jsonwebtoken";
 import { ApiError } from "../errors/ApiError.js";
 
- console.log("IN ingredientCONTROLLER !")
+ console.log("IN INGREDIENTCONTROLLER !")
  
 export const ingredientController = {
     

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { ApiError } from "../errors/ApiError.js";
 import { authenticateToken } from "../middlewares/auth.js";
 
- console.log("IN platCONTROLLER !")
+ console.log("IN USERCONTROLLER !")
  
 export const userController = {
     
@@ -33,6 +33,28 @@ export const userController = {
             });
             console.log(result)
             res.json(result);
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async checkAvantCommande(req, res, next){
+        try {
+            console.log("req user", req.user)
+            console.log("req body", req.body)
+            const result = await userService.checkAvantCommande(req.body, req.user.id)
+            res.json(result)
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async servirPlat(req, res, next){
+        try {
+            console.log("req user", req.user)
+            console.log("req body", req.body)
+            const result = await userService.servirPlat(req.body, req.user.id)
+            res.json(result)
         } catch (err) {
             next(err);
         }

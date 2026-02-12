@@ -1,13 +1,12 @@
 import { creature } from "../mongo.js";
 import { ApiError } from "../errors/ApiError.js";
 import { asInt } from "../utils/validators.js";
-import mongoose from "mongoose";
 import { authService} from "./authService.js"
 import { testimony } from "../mongo.js";
 import jwt from "jsonwebtoken";
 import { prisma } from "../prismaClient.js";
 
-export const loreService = {
+export const ingredientService = {
   async createCreature(payload) {
     const { name, origine, creatorId } = payload || {};
 
@@ -27,7 +26,7 @@ export const loreService = {
     return result;
   },
 
-  async showCreature(id){
+  async show(id){
     const idToFind =id;
     const result =await creature.findById(idToFind)
     if (!result){throw new ApiError(404, "Cette créature n'existe pas encore... creez la !");}

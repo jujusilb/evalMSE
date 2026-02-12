@@ -2,10 +2,9 @@ import { platService } from "../services/platService.js";
 import jwt from "jsonwebtoken";
 import { ApiError } from "../errors/ApiError.js";
 
- console.log("IN platCONTROLLER !")
+ console.log("IN PLATCONTROLLER !")
  
 export const platController = {
-    
     async create(req, res, next) {
         console.log("req body", req.body)
         try {
@@ -19,6 +18,15 @@ export const platController = {
         }
     },
 
+    async genereCommande(req, res, next) {
+        console.log("BIENVENU DANS GENERECOMMANDE !")
+        try {
+            const result = await platService.genereCommande()
+            res.json(result)
+        } catch (err) {
+            next(err);
+        }
+    },
     async show (req, res, next) {
         try {
             const result = await platService.show(req.params.id);

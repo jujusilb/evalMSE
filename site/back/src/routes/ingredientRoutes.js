@@ -2,6 +2,8 @@ import { Router } from "express";
 import { ingredientController } from "../controllers/ingredientController.js";
 import { authenticateToken } from "../middlewares/auth.js";
 
+console.log("IN INGREDIENTROUTES !")
+
 export const ingredientRoutes = Router();
 
 ingredientRoutes.get("/ingredient/:id/show", ingredientController.show); 

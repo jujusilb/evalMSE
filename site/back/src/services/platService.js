@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { prisma } from "../prismaClient.js";
 import { ApiError } from "../errors/ApiError.js";
 import { asInt } from "../utils/validators.js";
-
+import { shuffle } from "../utils/outil.js";
 const JWT_SECRET = process.env.JWT_SECRET || "CHANGE LE JULIEN";
 const JWT_EXPIRES_IN = "7d";
 
@@ -32,6 +32,24 @@ export const platService = {
     return { plat: plat };
   },
 
+
+  async genereCommande({ search } = {}){
+    const where = {};
+    if (search && String(search).trim() !== "") {
+      where.OR = [
+        { label: { contains: String(search), mode: "insensitive" } },
+      ];
+    }
+    
+
+    const plat = await prisma.plat.findMany({
+      where,
+      orderBy: [{ id: "asc" }],
+    });
+    const generatedPlat = shuffle(plat)[0]
+    console.log("generatedPlat", generatedPlat.label)
+    return generatedPlat;
+  },
 
   async show(id) {
     const plat =await prisma.plat.findUnique({

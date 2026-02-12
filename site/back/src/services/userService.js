@@ -98,6 +98,27 @@ export const userService = {
     }
   },
 
+  async checkAvantCommande(payload, userId){
+    console.log("payload", payload)
+    const { plat } =payload || {}
+    console.log("plat", plat)
+    console.log("userId", userId)
+    const platId = await prisma.plat.findUnique({
+      where: { id: asInt(plat.id)},
+    });
+    const possede =await prisma.grimoire.findUnique({
+      where: {
+         platId_userId:{
+          userId: userId,
+          platId:platId.id            
+        }
+      }
+    });
+    console.log("possede", possede)
+    if (!possede) {
+      return false;
+    }
+  },
 
   async show(id) {
     const user =await prisma.user.findUnique({
@@ -124,6 +145,46 @@ export const userService = {
 
     return { count: user.length, items: user.map(String) };
   },
+
+  async servirPlat(payload, userid){
+    console.log("IN USERSERVICE.SERVIRPLAT")
+    const { plat}=payload || {}
+    const recettes = await prisma.recette.findMany({
+        where: {
+            platId: asInt(plat.id)
+        },
+        include: {
+            ingredient: true
+        }
+    });
+    const listeIngredients = recettes.map(r => r.ingredient);
+    console.log("listeIngredient", listeIngredients)
+    for(const item of listeIngredients){
+      await prisma.stock.update({
+        where: { 
+          userId_ingredientId:{
+            userId:userId,
+            ingredientId:item.id
+          }
+        },
+        data: { 
+          quantite: { decrement: 1 }, 
+          argent: { increment: 10 }
+        },
+      });
+    }
+    const updatedUser = await prisma.user.update({
+      where: { 
+        id:userId
+      },
+      data:{
+        points: {increment: 1 }
+      }
+    })
+    return {message: "plat servi !", points:updatedUser.points, argent:updatedUser.argent}
+  },
+
+
 
   async edit(idRaw, payload) {
     const id = asInt(idRaw);

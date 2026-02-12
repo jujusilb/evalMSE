@@ -2,6 +2,8 @@ import { Router } from "express";
 import { authController } from "../controllers/authController.js";
 import { authenticateToken } from "../middlewares/auth.js";
 
+console.log("IN AUTHROUTES !")
+
 export const authRoutes = Router();
 
 
