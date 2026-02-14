@@ -37,7 +37,7 @@
     model stock {
         id              Int         @id @default(autoincrement())
         userId          Int
-        user            user        @relation(fields: [userId], references: [id])
+        user           N user        @relation(fields: [userId], references: [id])
         ingredientId    Int
         ingredient      ingredient  @relation(fields: [ingredientId], references: [id])
         quantite        Int

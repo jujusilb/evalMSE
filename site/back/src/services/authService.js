@@ -4,7 +4,7 @@ import { prisma } from "../prismaClient.js";
 import { ApiError } from "../errors/ApiError.js";
 import { asInt } from "../utils/validators.js";
 
-const JWT_SECRET = process.env.JWT_SECRET || "CHANGE LE JULIEN";
+const JWT_SECRET = process.env.JWT_SECRET || "Miam!";
 const JWT_EXPIRES_IN = "7d";
 
 function safeUser(u) {
@@ -46,7 +46,8 @@ export const authService = {
         username: String(username).trim(),
         password: hashed,
         role,
-        argent
+        argent: 100,
+        points:0
       },
     });
 

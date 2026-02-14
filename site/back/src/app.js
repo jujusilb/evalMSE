@@ -6,10 +6,12 @@ import { authRoutes } from "./routes/authRoutes.js";
 import { ingredientRoutes } from "./routes/ingredientRoutes.js";
 import { platRoutes } from "./routes/platRoutes.js";
 import  userRouter from "./routes/userRoutes.js";
-
+import cors from 'cors';
+  
 export const createApp = () => {
   const app = express();
-
+  app.use(cors({ origin: 'http://localhost:5173' }));
+  
   app.use(express.json());
   app.use(logger);
 
