@@ -1,4 +1,4 @@
-cd back
+cd site\back
 start backCode.bat
 start backRun.bat
 cd..\front

@@ -1,16 +1,16 @@
-import { ingredientService } from "../services/ingredientService.js";
+import { stockService } from "../services/stockService.js";
 import jwt from "jsonwebtoken";
 import { ApiError } from "../errors/ApiError.js";
 import e from "cors";
 
- console.log("IN INGREDIENTCONTROLLER !")
+ console.log("IN STOCKCONTROLLER !")
  
-export const ingredientController = {
+export const stockController = {
     
     async create(req, res, next) {
         console.log("req body", req.body)
         try {
-            const result = await ingredientService.create({
+            const result = await stockService.create({
                 label:req.body.label,
 
             });
@@ -22,7 +22,7 @@ export const ingredientController = {
 
     async show (req, res, next) {
         try {
-            const result = await ingredientService.show(req.params.id);
+            const result = await stockService.show(req.params.id);
             res.json(result);
         } catch (err) {
             next(err);
@@ -30,8 +30,12 @@ export const ingredientController = {
     },
 
     async index(req, res, next) {
+        console.log("IN StockControler.INDEX")
         try {
-            const result = await ingredientService.index(req.query || {});
+            const result = await stockService.index({
+                search: req.query || {},
+                userId:req.user.id
+            });
             console.log("result",result)
             res.json(result);
         } catch (err) {
@@ -44,7 +48,7 @@ export const ingredientController = {
     async edit (req, res, next) {
     console.log("salut !")
         try {
-            const result = await ingredientService.edit(req.params.id, req.body);
+            const result = await stockService.edit(req.params.id, req.body);
             res.json(result);
         } catch (err) {
             next(err);

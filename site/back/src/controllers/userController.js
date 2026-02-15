@@ -8,11 +8,14 @@ import { authenticateToken } from "../middlewares/auth.js";
 export const userController = {
     
     async acheterIngredient(req, res, next) {
-        console.log("req body", req.body)
-        try {
-            const result = await userService.acheterIngredient({
-                ingredient:req.body.ingredients,
-                user:req.user.id
+        console.log("IN UserController.acheterIngredient")
+        console.log("req body", req.body);
+        console.log("req user", req.user);
+        try{
+                
+                const result = await userService.acheterIngredient({
+                ingredientId:req.body.ingredientId,
+                userId:req.user.id
             });
             console.log(result);
             res.json(result);
@@ -24,12 +27,12 @@ export const userController = {
 
 
 
-    async testPlat(req, res, next) {
+    async decouvRecette(req, res, next) {
         console.log("req body", req.body)
         try {
             const result = await userService.testPlat({
                 ingredients:req.body.ingredients,
-                userId:req.user.id
+                userId:req.user.sub
             });
             console.log(result)
             res.json(result);
@@ -42,7 +45,7 @@ export const userController = {
         try {
             console.log("req user", req.user)
             console.log("req body", req.body)
-            const result = await userService.checkAvantCommande(req.body, req.user.id)
+            const result = await userService.checkAvantCommande(req.body, req.user.sub)
             res.json(result)
         } catch (err) {
             next(err);
@@ -53,7 +56,7 @@ export const userController = {
         try {
             console.log("req user", req.user)
             console.log("req body", req.body)
-            const result = await userService.servirPlat(req.body, req.user.id)
+            const result = await userService.servirPlat(req.body, req.user.sub)
             res.json(result)
         } catch (err) {
             next(err);

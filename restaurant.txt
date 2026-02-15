@@ -31,7 +31,7 @@ Expérimentation : Le joueur combine des ingrédients.
 
 Flux de Commandes : Le serveur envoie des commandes via WebSockets.
 Service : Pour servir, le joueur doit avoir débloqué la recette ET avoir le stock suffisant.
-Économie : Achat = Dépense et Service = Gain. Game Over si Trésorerie < 0.
+Économie : Achat = Dépense et Service = Gain. Game Over 	si Trésorerie < 0.
 
 
  2. Grille de Notation Progressive

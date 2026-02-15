@@ -26,12 +26,12 @@ function Login (){
                 localStorage.setItem("points", points)
                 
                 console.log("Compte créé !", res.data);
-                alert("Compte Tu es connecté ! Bon jeu !");
+                alert("Tu es connecté ! Bon jeu !");
                 navigate('/');
             })
             .catch(err => {
                 console.error("Erreur :", err.response?.data?.message || err.message);
-                alert("Erreur lors de l'inscription.");
+                alert("Erreur lors de la connexion.");
             });
         
     };

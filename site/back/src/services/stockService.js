@@ -9,7 +9,7 @@ const JWT_EXPIRES_IN = "7d";
 
 
 
-export const ingredientService = {
+export const stockService = {
   
   async create(payload) {
     console.log("IN ingredientService.CREATE")
@@ -45,21 +45,27 @@ export const ingredientService = {
     return ingredient
   },
 
-  async index({ search } = {}) {
-    console.log("IN ingredientService.INDEX ")
+  async index( payload ) {
+    console.log("payload", payload)
+    console.log("IN stockService.INDEX")
+    const { search, userId } = payload || {};
     const where = {};
-    if (search && String(search).trim() !== "") {
-      where.OR = [
-        { label: { contains: String(search), mode: "insensitive" } },
-      ];
+    console.log("search", search)
+    if (search && typeof search === 'string' && search.trim() !== "") {
+        where.ingredient = {
+            label: { contains: search, mode: "insensitive" }
+        };
     }
 
-    const ingredient = await prisma.ingredient.findMany({
+    const stocks = await prisma.stock.findMany({
       where,
+      include: {
+      ingredient: true // Très important pour avoir le nom/label de l'ingrédient !
+      },
       orderBy: [{ id: "asc" }],
     });
 
-    return { count: ingredient.length, items: ingredient };
+    return { count: stocks.length, items: stocks };
   },
 
   async edit(idRaw, payload) {

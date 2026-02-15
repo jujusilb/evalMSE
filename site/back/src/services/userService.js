@@ -11,7 +11,12 @@ const JWT_EXPIRES_IN = "7d";
 
 export const userService = {
   async acheterIngredient(payload) {
-    const { ingredientId, prix, userId } = payload || {};
+    console.log("IN UserService.acheterIngredient")
+    console.log("DEBUG SERVICE - payload brut", payload)
+    
+    const { ingredientId, userId } = payload || {};
+    console.log("DEBUG SERVICE - userId", userId)
+    console.log("DEBUG SERVICE - ingredientId", ingredientId)
     const user =await prisma.user.findUnique({
       where: { id: userId }
     });
@@ -19,24 +24,55 @@ export const userService = {
       return "cet user n'existe pas";
     }
     const ingredient = await prisma.ingredient.findUnique({
-      where: { ingredient: ingredient },
+      where: { id: ingredientId },
     });
     if (!ingredient){
       return "cet ingredient n'existe pas";
     }
     if (ingredient.prix > user.argent){
       return "pas assez d'argent !";
+    } else {
+      const stock = await prisma.stock.findUnique({
+        where: {
+          userId_ingredientId:{
+            userId:Number(userId),
+            ingredientId:Number(ingredientId)
+          }
+        }
+      });
+      if(!stock){
+        const newStock = await prisma.stock.create({
+          data: {
+            ingredientId: Number(ingredientId),
+            userId: userId,
+            quantite:1
+          }
+        });
+      } else {
+        const updatedStock = await prisma.stock.update({
+          where: {
+            userId_ingredientId:{
+              userId:userId,
+              ingredientId:Number(ingredientId)
+            }
+          },
+          data:{
+            quantite: {increment: 1}
+          }
+        })
+      }
     }
-    const recette = await prisma.recette.create({
-      data: {
-        ingredientId: ingredient.id,
-        userId: user.id
-      },
+    const updateduser = await prisma.user.update({
+      where: { id:Number(userId) }, 
+      data:{
+        argent: {decrement: ingredient.prix}
+      }
     });
-    return { recette: recette };
+    console.log("acheté")
+    return user;
   },
 
-  async testPlat(payload) {
+  async decouvRecette(payload) {
     const { ingredients, userId } = payload || {};
     const user =await prisma.user.findUnique({
       where: { id: userId }

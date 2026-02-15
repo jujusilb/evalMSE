@@ -29,7 +29,7 @@ export const authService = {
       throw new ApiError(400, "Password must be >= 6 chars");
     }
 
-    if (!["USER", "EXPERT", "ADMIN"].includes(role)) {
+    if (!["USER", "ADMIN"].includes(role)) {
       throw new ApiError(400, "Invalid role (USER|EXPERT|ADMIN)");
     }
 
