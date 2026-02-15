@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import Header from './header'
-import Inventaire from './inventaire'
+import Footer from './footer'
 function Presentation() {
     return (
         <>
             <Header />
-            <div className="cibtainer bg-color-grey">
+            <div className="container bg-color-grey">
                 Bonjour !
                 <br />
                 Bienvenu dans mon jeu !
@@ -16,7 +16,7 @@ function Presentation() {
                 </Link>
                 <br /><br />
             </div>
-            <Inventaire />
+            <Footer />
         </>
 
     )

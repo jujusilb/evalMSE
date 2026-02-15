@@ -30,10 +30,11 @@ function IndexIngredients() {
             { headers: { Authorization: `Bearer ${token}` } }
         )
         .then(res => {
-            console.log("res data", res.data.user);
+            console.log("res data", res.data);
+            localStorage.setItem("argent", res.data.argent)
             console.log("ingredient acheté !", res.data);
             //alert("achat reussi ! !");
-            navigate('/boutique');
+            navigate(0);
         })
         .catch(err => {
             console.error("Erreur :", err.response?.data?.message || err.message);

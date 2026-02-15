@@ -7,7 +7,7 @@ import Register from './connexion/register'
 import Login from './connexion/login'
 import Presentation from './affichage/presentation'
 import MarketPlace from './jeu/boutique'
-import Inventaire from './affichage/inventaire'
+//import Inventaire from './affichage/footer/inventaire'
 
 function App() {
 
@@ -18,8 +18,6 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path='/boutique' element={<MarketPlace />} />
-          <Route path='/inventaire' element={<Inventaire />} />
-          
         </Routes>
     </div>
   )

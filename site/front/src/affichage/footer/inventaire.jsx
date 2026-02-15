@@ -19,15 +19,15 @@ function Inventaire() {
         console.log('ingredients', ingredients)
     }, []);
     return (
-        <footer className="fixed-bottom justify-content-end d-flex text-align-center" style={{ marginTop: '120px' }}>
+        <>
             {ingredients.map((ingredient, ingredientId) => (
-                <div className="h-25 card" key={ingredientId}>
-                    <div className="card-header">{ingredient.ingredient.label}</div>
-                    <div className="card-body">{ingredient.quantite}</div>
-                </div>
-            ))}
-            <h3>Inventaire</h3>
-        </footer>
+                    <div className="h-25 card" key={ingredientId}>
+                        <div className="card-header">{ingredient.ingredient.label}</div>
+                        <div className="card-body">{ingredient.quantite}</div>
+                    </div>
+                ))}
+                <h3>Inventaire</h3>
+        </>
     )
 }
 export default Inventaire
