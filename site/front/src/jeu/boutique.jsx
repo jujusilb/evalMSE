@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from "../affichage/header";
 import  IndexIngredients from "./boutique/IndexIngredients";
 import Inventaire from "../affichage/footer";
+import { useParams } from "react-router-dom";
 
 function MarketPlace(){
 

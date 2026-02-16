@@ -73,11 +73,12 @@ export const userService = {
   },
 
   async decouvRecette(payload) {
+    console.log("IN userService.DECOUVRECETTE")
     const { ingredients, userId } = payload || {};
     const user =await prisma.user.findUnique({
-      where: { id: userId }
+      where: { id: Number(userId) }
     });
-    const idsRecus = ingredients.map(item => Number(item.id));
+    const idsRecus = ingredients.map(item => Number(item));
     console.log("LOG 1 - IDs recus :", idsRecus);
     const tousLesPlats = await prisma.plat.findMany({
         include: {
@@ -109,10 +110,12 @@ export const userService = {
               userId: user.id
           },
         });
-        return { plat: platChoisi };
+        return { code:"Found", message:"Plat ajouté au grimoire !", plat: platChoisi };
       }
     } else {
+      console.log("idsRecus", idsRecus)
       for (const ingId of idsRecus) {
+        console.log("ingId", ingId, "numbered", Number(ingId) )
         const stockItem = await prisma.stock.findUnique({
           where: {
             userId_ingredientId: { 
@@ -130,7 +133,7 @@ export const userService = {
           console.log(`Inventaire mis à jour : -1 pour l'ingrédient ${ingId}`);
         }
       }
-      return { message: "Aucun plat découvert, ingrédients consommés." };
+      return {code:"NotFound", message: "Aucun plat découvert, ingrédients consommés." };
     }
   },
 
@@ -179,7 +182,7 @@ export const userService = {
       orderBy: [{ id: "asc" }],
     });
 
-    return { count: user.length, items: user.map(String) };
+    return { code:"Found", message:"Plat ajouté au grimoire", count: user.length, items: user.map(String) };
   },
 
   async servirPlat(payload, userid){

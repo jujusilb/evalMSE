@@ -7,6 +7,9 @@ import { ingredientRoutes } from "./routes/ingredientRoutes.js";
 import { platRoutes } from "./routes/platRoutes.js";
 import  userRouter from "./routes/userRoutes.js";
 import { stockRoutes } from "./routes/stockRoutes.js";
+import { grimoireRoutes } from "./routes/grimoireRoutes.js";
+
+
 import cors from 'cors';
   
 export const createApp = () => {
@@ -28,6 +31,7 @@ export const createApp = () => {
 
   app.use(healthRoutes);
   app.use(authRoutes);
+  app.use(grimoireRoutes);
   app.use(ingredientRoutes);
   app.use(platRoutes);
   app.use(stockRoutes);

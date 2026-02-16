@@ -30,9 +30,9 @@ export const userController = {
     async decouvRecette(req, res, next) {
         console.log("req body", req.body)
         try {
-            const result = await userService.testPlat({
+            const result = await userService.decouvRecette({
                 ingredients:req.body.ingredients,
-                userId:req.user.sub
+                userId:req.user.id
             });
             console.log(result)
             res.json(result);

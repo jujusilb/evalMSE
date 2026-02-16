@@ -8,6 +8,8 @@ import Login from './connexion/login'
 import Presentation from './affichage/presentation'
 import MarketPlace from './jeu/boutique'
 //import Inventaire from './affichage/footer/inventaire'
+import Labo from './jeu/labo'
+
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path='/boutique' element={<MarketPlace />} />
+          <Route path='/labo' element={<Labo />} />
         </Routes>
     </div>
   )
