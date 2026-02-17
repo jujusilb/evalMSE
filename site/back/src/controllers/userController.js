@@ -45,7 +45,7 @@ export const userController = {
         try {
             console.log("req user", req.user)
             console.log("req body", req.body)
-            const result = await userService.checkAvantCommande(req.body, req.user.sub)
+            const result = await userService.checkAvantCommande(req.body, req.user.id)
             res.json(result)
         } catch (err) {
             next(err);
@@ -56,7 +56,7 @@ export const userController = {
         try {
             console.log("req user", req.user)
             console.log("req body", req.body)
-            const result = await userService.servirPlat(req.body, req.user.sub)
+            const result = await userService.servirPlat(req.body, req.user.id)
             res.json(result)
         } catch (err) {
             next(err);

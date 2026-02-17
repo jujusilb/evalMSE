@@ -12,11 +12,11 @@ import BtnServir from "./restaurant/btnServir";
 import "./restaurant/restaurant.css"
 
 function Restaurant(){
-    const [commandes, setCommandes] =useState([])
+    const [currentCommandes, SetcurrentCommandes] =useState([])
     const [isGame, setIsGame] =useState(false);
     const token = localStorage.getItem("token");
-
-    
+    const [isOk, setIsOk] =useState(false);
+    const [selectedCommande, setSelectedCommande] = useState(null);
                                                     
     //if(isGame){
     //    setTimeout(fetchCommande, 3000);
@@ -26,9 +26,18 @@ function Restaurant(){
             <Header />
             <div className="container">
                 <h1>Salle de restaurant</h1>
-                <ListCommande />    
+                <ListCommande
+                    isGame={isGame}
+                    setIsOk={setIsOk} 
+                    setCommande={setSelectedCommande}
+                    />    
                 <Grimoire />
-                <BtnServir />
+                <BtnServir 
+                    isGame={isGame} 
+                    setIsGame={setIsGame} 
+                    selectedCommande={selectedCommande} 
+                    isOk={true}
+/>
             </div>
         </>
     )

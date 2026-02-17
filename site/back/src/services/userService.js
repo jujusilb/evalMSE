@@ -157,6 +157,7 @@ export const userService = {
     if (!possede) {
       return false;
     }
+    return true;
   },
 
   async show(id) {
@@ -185,9 +186,10 @@ export const userService = {
     return { code:"Found", message:"Plat ajouté au grimoire", count: user.length, items: user.map(String) };
   },
 
-  async servirPlat(payload, userid){
+  async servirPlat(payload, userId){
     console.log("IN USERSERVICE.SERVIRPLAT")
-    const { plat}=payload || {}
+    const { plat }=payload || {}
+    console.log("plat", plat);
     const recettes = await prisma.recette.findMany({
         where: {
             platId: asInt(plat.id)
@@ -207,8 +209,7 @@ export const userService = {
           }
         },
         data: { 
-          quantite: { decrement: 1 }, 
-          argent: { increment: 10 }
+          quantite: { decrement: 1 },
         },
       });
     }
@@ -217,6 +218,7 @@ export const userService = {
         id:userId
       },
       data:{
+	argent:{increment: plat.gain},
         points: {increment: 1 }
       }
     })

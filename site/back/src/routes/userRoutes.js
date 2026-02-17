@@ -12,5 +12,5 @@ userRouter.get("/:id/show", userController.show);
 userRouter.put("/:id/update", userController.edit);
 userRouter.post("/decouvRecette", authenticateToken, userController.decouvRecette); 
 userRouter.post("/plat/checkIf", authenticateToken, userController.checkAvantCommande); 
-userRouter.post("/plat/servirPlat", authenticateToken, userController.servirPlat);
+userRouter.post("/plat/servirPlat", a1uthenticateToken, userController.servirPlat);
 export default userRouter;
