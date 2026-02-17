@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Header from './header'
 import Footer from './footer'
 import Grimoire from './sidebar/grimoire'
+import Restaurant from '../jeu/restaurant'
 function Presentation() {
     return (
         <>
@@ -18,6 +19,9 @@ function Presentation() {
                         </Link><br />
                         <Link to="/labo" >
                             Partez  crafter !!
+                        </Link><br />
+                        <Link to="/restaurant" >
+                            Au boulot !!
                         </Link>
                     </h6>
                 

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `plat` ADD COLUMN `gain` INTEGER NOT NULL DEFAULT 0;

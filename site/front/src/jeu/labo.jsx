@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Header from '../affichage/header'
 import Footer from '../affichage/footer'
 import BtnCraft from './labo/btnCraft'
+import Grimoire from "../affichage/sidebar/grimoire";
 
 function Labo(){
     const [tableauIngredients, setTableauIngredients] = useState([]);
@@ -20,6 +21,7 @@ function Labo(){
                 </div>
                 
             </div>
+            <Grimoire />
             <Footer ingredients={tableauIngredients} setIngredients={setTableauIngredients}/>
         </>
     );

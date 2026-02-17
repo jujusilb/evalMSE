@@ -40,6 +40,7 @@ export const authController = {
         }
     },
     async login(req, res, next) {
+        console.log("req body", req.body)
         try {   
             const result = await authService.login(req.body || {});
             res.json(result);

@@ -32,12 +32,13 @@
     label         String    @unique
     ingredients   recette[]
     users         grimoire[]
+    gain          Int       @default(0)
     }
 
     model stock {
         id              Int         @id @default(autoincrement())
         userId          Int
-        user           N user        @relation(fields: [userId], references: [id])
+        user            user        @relation(fields: [userId], references: [id])
         ingredientId    Int
         ingredient      ingredient  @relation(fields: [ingredientId], references: [id])
         quantite        Int

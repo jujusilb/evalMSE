@@ -6,6 +6,7 @@ import Header from "../affichage/header";
 import  IndexIngredients from "./boutique/IndexIngredients";
 import Inventaire from "../affichage/footer";
 import { useParams } from "react-router-dom";
+import Grimoire from "../affichage/sidebar/grimoire";
 
 function MarketPlace(){
 
@@ -15,6 +16,7 @@ function MarketPlace(){
             <h1>Bienvenu dans la boutique !</h1>
             <IndexIngredients />
             <Inventaire />
+            <Grimoire />
         </>
     )
 }

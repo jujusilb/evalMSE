@@ -22,6 +22,7 @@ export const platController = {
         console.log("BIENVENU DANS GENERECOMMANDE !")
         try {
             const result = await platService.genereCommande()
+            console.log("DEPART DE GENERERCOMMANDE", result)
             res.json(result)
         } catch (err) {
             next(err);

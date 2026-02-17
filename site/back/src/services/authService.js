@@ -63,7 +63,7 @@ export const authService = {
     });
 
     if (!user) throw new ApiError(401, "Invalid credentials");
-
+    console.log("user", user  )
     const ok = await bcrypt.compare(String(password), user.password);
     if (!ok) throw new ApiError(401, "Invalid credentials");
 
@@ -72,7 +72,7 @@ export const authService = {
       process.env.JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
-
+    console.log("process env jwt token", process.env.JWT_SECRET)
     return { token, user: safeUser(user) };
   },
 

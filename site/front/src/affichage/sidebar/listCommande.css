@@ -1,0 +1,13 @@
+.listCommande {
+    position: fixed;
+    left: 0;                   
+    top: 115px;                 
+    width: 200px;              
+    height: calc(100vh - 60px);
+    background-color: #f8f9fa; 
+    border-right: 2px solid #dee2e6; /* Bordure côté intérieur */
+    z-index: 1050;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
