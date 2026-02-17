@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./listCommande.css";
 
-function ListCommande({ setCommande, isGame, setIsOk }) {
+function ListCommande({ setCommande, isGame, setIsOk, selectedCommande}) {
     const [commandes, setCommandes] = useState([]);
     const token = localStorage.getItem("token");
 
@@ -39,8 +39,6 @@ function ListCommande({ setCommande, isGame, setIsOk }) {
         setIsOk(true);
         setCommande(cmd)
         console.log("commande", cmd)
-        setSelected(index)
-        console.log("Index sélectionné :", index);
         const token = localStorage.getItem("token");
         const url = 'http://localhost:8000/plat/checkIF'
         axios.post(url, { plat: cmd }, { headers: { Authorization: `Bearer ${token}` } })
@@ -64,10 +62,9 @@ function ListCommande({ setCommande, isGame, setIsOk }) {
                         onClick={() => handleClick(cmd, index)}
                         key={index}
                         style={{
-                            backgroundColor: selected === index ? "#ffeeba" : "white", // Jaune si sélectionné
-                            cursor: "pointer",
-                            borderWidth: selected === index ? "2px" : "1px", // Un peu plus épais
-                            transition: "all 0.2s ease"
+                            backgroundColor: selectedCommande?.label === cmd.label ? "#ffeeba" : "white", 
+                            borderWidth: selectedCommande?.label === cmd.label ? "2px" : "1px", 
+                            cursor: "pointer"
                         }}>
                         <strong>{cmd.label}</strong>
                     </div>

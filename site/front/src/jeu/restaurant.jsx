@@ -30,6 +30,7 @@ function Restaurant(){
                     isGame={isGame}
                     setIsOk={setIsOk} 
                     setCommande={setSelectedCommande}
+                    selectedCommande={selectedCommande}
                     />    
                 <Grimoire />
                 <BtnServir 
