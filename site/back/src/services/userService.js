@@ -218,7 +218,7 @@ export const userService = {
         id:userId
       },
       data:{
-	argent:{increment: plat.gain},
+	      argent:{increment: plat.gain},
         points: {increment: 1 }
       }
     })

@@ -17,7 +17,7 @@ function Register (){
             .then(res => {
                 console.log("Compte créé !", res.data);
                 alert("Compte créé avec succès ! Connecte-toi maintenant.");
-                navigate('/login'); // Redirection auto vers le login
+                navigate('/login');
             })
             .catch(err => {
                 console.error("Erreur :", err.response?.data?.message || err.message);

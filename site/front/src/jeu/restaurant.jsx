@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "react-routes/lib/Link";
-import axios from 'axios'; // N'oublie pas l'import !
+import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom'; 
 import Header from "../affichage/header";
 import  IndexIngredients from "./boutique/IndexIngredients";
@@ -12,15 +12,13 @@ import BtnServir from "./restaurant/btnServir";
 import "./restaurant/restaurant.css"
 
 function Restaurant(){
-    const [currentCommandes, SetcurrentCommandes] =useState([])
     const [isGame, setIsGame] =useState(false);
     const token = localStorage.getItem("token");
     const [isOk, setIsOk] =useState(false);
     const [selectedCommande, setSelectedCommande] = useState(null);
-                                                    
-    //if(isGame){
-    //    setTimeout(fetchCommande, 3000);
-    //}
+    const [selectedIndex, setSelectedIndex] = useState(null);
+     const [commandes, setCommandes] = useState([]);                                               
+
     return (
         <>
             <Header />
@@ -31,6 +29,9 @@ function Restaurant(){
                     setIsOk={setIsOk} 
                     setCommande={setSelectedCommande}
                     selectedCommande={selectedCommande}
+                    setSelectedIndex={setSelectedIndex}
+                    commandes={commandes}
+                    setCommandes={setCommandes}
                     />    
                 <Grimoire />
                 <BtnServir 
@@ -38,7 +39,11 @@ function Restaurant(){
                     setIsGame={setIsGame} 
                     selectedCommande={selectedCommande} 
                     isOk={true}
-/>
+                    selectedIndex={selectedIndex}       
+                    setSelectedIndex={setSelectedIndex} 
+                    setCommande={setSelectedCommande}   
+                    setCommandes={setCommandes}  
+                />
             </div>
         </>
     )

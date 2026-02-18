@@ -9,7 +9,6 @@ import Register from './connexion/register'
 import Login from './connexion/login'
 import Presentation from './affichage/presentation'
 import MarketPlace from './jeu/boutique'
-//import Inventaire from './affichage/footer/inventaire'
 import Labo from './jeu/labo'
 
 

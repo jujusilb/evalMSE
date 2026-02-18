@@ -22,8 +22,6 @@ function Inventaire(payload) {
     }, []);
 
     const handleSelect = (id, label) => {
-        console.log("ID sélectionné :", id);
-        console.log("Nom sélectionné :", label);
         if(selected.includes(id)){
             setSelected(selected.filter(item => item !== id))
         } else {

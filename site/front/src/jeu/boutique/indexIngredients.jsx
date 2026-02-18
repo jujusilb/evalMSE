@@ -21,7 +21,6 @@ function IndexIngredients() {
     }, []);
 
     const handleAchat = (ingredient) => {
-        //e.preventDefault();
         console.log("Tentative d'achat avec :", { achat });
         const token = localStorage.getItem("token");
         const url = 'http://localhost:8000/acheterIngredient'
@@ -33,7 +32,6 @@ function IndexIngredients() {
             console.log("res data", res.data);
             localStorage.setItem("argent", res.data.argent)
             console.log("ingredient acheté !", res.data);
-            //alert("achat reussi ! !");
             navigate(0);
         })
         .catch(err => {

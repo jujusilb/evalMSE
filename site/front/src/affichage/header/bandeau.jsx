@@ -8,8 +8,8 @@ function Bandeau(){
     const argent = localStorage.getItem("argent") || 0;
     const points = localStorage.getItem("points") || 0;
     const handleLogout = () => {
-        localStorage.clear(); // On vide tout (token, username, etc.)
-        window.location.reload(); // On rafraîchit pour que le code repasse dans le "else"
+        localStorage.clear(); 
+        window.location.reload();
     };
     const message="Bonjour"
     let action
